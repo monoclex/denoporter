@@ -1,4 +1,4 @@
-# denoporter
+# denoporter ![CI/CD](https://github.com/SirJosh3917/denoporter/workflows/CI/CD/badge.svg)
 Deno requires imports of projects to explicitly include the file extension. Whilst a welcome change, it also brings about a severe backwords compatibility problem. This tool solves that problem, by rewriting all imports to have their proper ending.
 
 *Pull requests welcome!*
@@ -6,7 +6,7 @@ Deno requires imports of projects to explicitly include the file extension. Whil
 # Usage
 **WARNING:** this tool is in an early stage.
 
-![Modification Example](https://rawcdn.githack.com/SirJosh3917/denoporter/master/example.png)
+![Modification Example](https://rawcdn.githack.com/SirJosh3917/denoporter/8b6e79bd1b5b5aca71bf45fc01f3e00ee2b2260b/example.png)
 
 ```
 https://denoporter.sirjosh.workers.dev/v1/<URL without `http(s)://` prefix>
@@ -26,6 +26,10 @@ console.log(number);
 # Build
 ```shell
 yarn install
+
+# this step may be optional, i don't know anymore (:
+yarn add @cloudflare/wrangler global
+
 yarn build
 ```
 

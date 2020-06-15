@@ -23,28 +23,25 @@ async function workerHandleRequest(request: Request): Promise<Response> {
   const baseUrl = url.origin;
   const path = url.pathname;
 
-  // if we're on the /v1 path, rewrite the imports and return the rewritten stuff
   if (path.startsWith('/v1/')) {
-    const result = await handleRequest(request.url.slice(baseUrl.length));
-
-    let response: Response;
-
-    if (typeof result === 'string') {
-      response = new Response(result);
-    }
-    else {
-      response = new Response(`ERROR: ${result}`, {
-        status: 500
-      });
-    }
-
-    response.headers.set('Content-Type', 'text/plain');
-
-    return response;
+    return await handleV1(request, url);
   }
   else {
-
-    // otherwise, redirect to the github page
+    // if the proper path isn't met, we should return them to the github homepage.
     return Response.redirect('https://github.com/SirJosh3917/denoporter/');
   }
+}
+
+async function handleV1(request: Request, requestUrl: URL): Promise<Response> {
+
+  // cut the path from `https://asdf.com/v1/...` to `/v1/...`
+  const path = request.url.slice(requestUrl.origin.length);
+  const result = await handleRequest(path);
+
+  const response = (typeof result === 'string'
+    ? new Response(result)
+    : new Response(`ERROR: ${result}`, { status: 500 }));
+  response.headers.set('Content-Type', 'text/plain');
+
+  return response;
 }
