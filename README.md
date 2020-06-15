@@ -6,7 +6,7 @@ Deno requires imports of projects to explicitly include the file extension. Whil
 # Usage
 **WARNING:** this tool is in an early stage.
 
-![Modification Example](https://github.com/SirJosh3917/denoporter/example.png)
+![Modification Example](https://rawcdn.githack.com/SirJosh3917/denoporter/master/example.png)
 
 ```
 https://denoporter.com/v1/<URL without http(s):// prefix>
