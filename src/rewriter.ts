@@ -71,5 +71,9 @@ function rewriteNode(node: ts.Node): ts.Node | void {
 }
 
 function rewriteModule(module: string) {
+  // naive check incase module extension is already defined
+  if (module.endsWith('.ts') || module.endsWith('.js')) return module;
+
+  // in the future, it may be better to check that the given attempted module paths actually exist
   return module + '.ts';
 }
