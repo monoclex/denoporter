@@ -1,5 +1,6 @@
 /**
  * @description Only needed for cloudflare workers. This transpiles the typescript into javascript.
+ * {@link https://github.com/EverlastingBugstopper/worker-typescript-template/blob/master/webpack.config.js}
  */
 
 const path = require('path')

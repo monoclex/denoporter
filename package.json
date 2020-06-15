@@ -4,9 +4,10 @@
   "description": "Rewrites imports to have the appropriate extension on the end when importing with deno.",
   "main": "src/index.ts",
   "scripts": {
-    "build": "tsc -b",
-    "start": "node ./dist/index.js",
-    "dev": "npm run build && npm run start"
+    "publish": "wrangler publish",
+    "build": "wrangler build",
+    "dev": "wrangler preview --watch",
+    "dev:local-no-reloading": "npm run build && cloudworker --debug worker/script.js"
   },
   "keywords": [
     "deno",
@@ -16,13 +17,11 @@
   "author": "SirJosh3917",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.0",
     "typescript": "^3.9.5"
   },
   "devDependencies": {
-    "@types/express": "^4.17.6",
-    "@types/node-fetch": "^2.5.7",
+    "@cloudflare/wrangler": "^1.9.2",
+    "@dollarshaveclub/cloudworker": "^0.1.2",
     "ts-loader": "^7.0.5"
   }
 }

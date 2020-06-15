@@ -25,11 +25,8 @@ console.log(number);
 
 # Build
 ```shell
-docker build .
-# or
+yarn install
 yarn build
-# or
-npm run build
 ```
 
 # Dude that URL

@@ -2,16 +2,49 @@
  * @author SirJosh3917
  * @copyright 2020 SirJosh3917
  * @license MIT
- * @description Main entrypoint. Requires manual intervention. Not fancy or good or clean at all, but it's good enough:tm:.
+ * @description Handles incoming requests as if it were a service worker. Primarily setup this way to be compatible with Cloudflare Workers,
+ * a service that will host my code for free if I make them look like service workers.
  */
 
-// TODO: completely deprecate node-express and other infrastructure in favor of a service worker only approach.
-// could use something like cloudworker when we're not available
+import { handleRequest } from "./request-handler";
 
-// uncomment this line if using cloudflare workers.dev
-import "./cloudflare-worker.ts";
+addEventListener('fetch', (event) => {
+  //@ts-ignore
+  const request: Request = event.request;
+  if (request.method !== 'GET') return new Response('Expected GET', { status: 500 });
 
-// uncomment this line if using node and express
-// import "./node-express.ts";
+  //@ts-ignore
+  event.respondWith(workerHandleRequest(request));
+});
 
-// throw new Error('see index.ts and uncomment one of the lines');
+async function workerHandleRequest(request: Request): Promise<Response> {
+
+  const url = new URL(request.url);
+  const baseUrl = url.origin;
+  const path = url.pathname;
+
+  // if we're on the /v1 path, rewrite the imports and return the rewritten stuff
+  if (path.startsWith('/v1/')) {
+    const result = await handleRequest(request.url.slice(baseUrl.length));
+
+    let response: Response;
+
+    if (typeof result === 'string') {
+      response = new Response(result);
+    }
+    else {
+      response = new Response(`ERROR: ${result}`, {
+        status: 500
+      });
+    }
+
+    response.headers.set('Content-Type', 'text/plain');
+
+    return response;
+  }
+  else {
+
+    // otherwise, redirect to the github page
+    return Response.redirect('https://github.com/SirJosh3917/denoporter/');
+  }
+}
