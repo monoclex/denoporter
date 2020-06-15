@@ -1,6 +1,7 @@
 .git/
 .vscode/
 dist/
+worker/
 node_modules/
 .dockerignore
 .gitignore

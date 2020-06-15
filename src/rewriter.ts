@@ -11,7 +11,7 @@ export function rewrite(code: string): string {
   const printer = ts.createPrinter();
 
   let modified = "";
-  
+
   sourceFile.forEachChild(node => {
     const result = rewriteNode(node);
 
@@ -24,7 +24,7 @@ export function rewrite(code: string): string {
     modified += printer.printNode(ts.EmitHint.Unspecified, appendingNode, sourceFile);
     modified += '\r\n';
   })
-  
+
   return modified;
 }
 
@@ -44,7 +44,7 @@ function rewriteNode(node: ts.Node): ts.Node | void {
 
     return rewrittenNode;
   }
-  
+
   if (ts.isExportDeclaration(node)) {
     if (!node.moduleSpecifier) return;
     if (!ts.isStringLiteral(node.moduleSpecifier)) return; // "If this is not a StringLiteral it will be a grammar error."

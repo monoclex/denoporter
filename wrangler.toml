@@ -1,0 +1,8 @@
+name = "denoporter"
+type = "webpack"
+webpack_config = "webpack.config.js"
+
+account_id = "8cc51c2980383798d33db439dba0e5c4"
+workers_dev = true
+route = ""
+zone_id = ""
