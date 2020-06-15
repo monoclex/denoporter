@@ -9,6 +9,6 @@
     "moduleResolution": "node",
     "outDir": "dist",
 
-    "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true
   }
 }

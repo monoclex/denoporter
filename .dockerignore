@@ -1,0 +1,10 @@
+.git/
+.vscode/
+dist/
+node_modules/
+.dockerignore
+.gitignore
+Dockerfile
+example.png
+LICENSE
+README.md
