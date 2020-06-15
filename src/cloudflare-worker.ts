@@ -19,22 +19,32 @@ addEventListener('fetch', (event) => {
 
 async function workerHandleRequest(request: Request): Promise<Response> {
 
-  const baseUrl = new URL(request.url).origin;
+  const url = new URL(request.url);
+  const baseUrl = url.origin;
+  const path = url.pathname;
 
-  const result = await handleRequest(request.url.slice(baseUrl.length));
-  
-  let response: Response;
+  // if we're on the /v1 path, rewrite the imports and return the rewritten stuff
+  if (path.startsWith('/v1/')) {
+    const result = await handleRequest(request.url.slice(baseUrl.length));
 
-  if (typeof result === 'string') {
-    response = new Response(result);
+    let response: Response;
+
+    if (typeof result === 'string') {
+      response = new Response(result);
+    }
+    else {
+      response = new Response(`ERROR: ${result}`, {
+        status: 500
+      });
+    }
+
+    response.headers.set('Content-Type', 'text/plain');
+
+    return response;
   }
   else {
-    response = new Response(`ERROR: ${result}`, {
-      status: 500
-    });
-  }
-  
-  response.headers.set('Content-Type', 'text/plain');
 
-  return response;
+    // otherwise, redirect to the github page
+    return Response.redirect('https://github.com/SirJosh3917/denoporter/');
+  }
 }

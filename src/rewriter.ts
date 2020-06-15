@@ -1,8 +1,15 @@
+/**
+ * @author SirJosh3917
+ * @copyright 2020 SirJosh3917
+ * @license MIT
+ * @description This is the core of the denoporter service, which rewrites typescript code.
+ */
+
 import ts from "typescript";
 
 /**
- * Rewrites import urls of typescript code by appending all imports with '.ts' if necessary.
- * @param code The code to rewrite imports for.
+ * Uses the typescript compiler to parse typescript code, and rewrite the imports.
+ * @param code The typescript code to rewrite imports for.
  */
 export function rewrite(code: string): string {
 

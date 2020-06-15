@@ -11,7 +11,6 @@ import { handleRequest } from "./request-handler";
 const app = express();
 
 // i don't know if you actually need to `return response.xxx`, but i'm doing it here to explicitly end control flow.
-
 app.get('/', (request, response) => {
   return response.redirect('https://github.com/SirJosh3917/denoporter');
 })
